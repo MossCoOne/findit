@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Findit</string>
+    <string name="current_location_title">Current Location:</string>
+    <string name="location_icon">Location icon</string>
+    <string name="find_nearby_location">Find nearby places</string>
+    <string name="filter_by">Filter by:</string>
+    <string name="expand_dropdown">Expand dropdown list</string>
+    <string-array name="category_array">
+        <item>Select category</item>
+        <item>Gas Station</item>
+        <item>Hardware Store</item>
+        <item>Health &amp; Beauty Service</item>
+        <item>IT Services</item>
+        <item>Food</item>
+        <item>Car Wash</item>
+        <item>College &amp; University</item>
+        <item>Event</item>
+        <item>Child Care Service</item>
+        <item> Arts &amp; Entertainment</item>
+    </string-array>
 </resources>
