@@ -104,7 +104,7 @@
                     android:layout_gravity="center"
                     android:layout_marginEnd="@dimen/dimen_8dp"
                     android:contentDescription="@string/expand_dropdown"
-                    android:src="@drawable/ic_expand" />
+                    app:srcCompat="@drawable/ic_expand" />
 
             </RelativeLayout>
 
@@ -123,7 +123,8 @@
                 android:id="@+id/rv_nearby_places"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_4dp" />
+                android:layout_margin="@dimen/dimen_4dp"
+                tools:listitem="@layout/places_row" />
         </LinearLayout>
 
     </LinearLayout>
