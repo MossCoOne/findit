@@ -9,7 +9,6 @@ public interface PlacesServiceApi {
     @GET("nearbysearch/json?")
     Call<PlacesResponse> findPlacesAround(
             @Query("location") String longitudeAndLatitude,
-            @Query("rankby") String distance,
             @Query("radius") double radius,
             @Query("types") String category,
             @Query("key") String apiKey);
