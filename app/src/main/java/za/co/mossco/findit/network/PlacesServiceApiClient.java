@@ -21,7 +21,7 @@ public class PlacesServiceApiClient {
             Gson gson = new GsonBuilder()
                     .create();
             retrofit = new Retrofit.Builder()
-                    .baseUrl(Constants.BASE_URL)
+                    .baseUrl(Constants.GOOGLE_BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
             placesServiceApi = retrofit.create(PlacesServiceApi.class);
