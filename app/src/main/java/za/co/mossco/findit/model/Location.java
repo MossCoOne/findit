@@ -1,26 +1,15 @@
-package za.co.mossco.findit.bean;
+package za.co.mossco.findit.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LabeledLatLng {
-    @SerializedName("label")
-    @Expose
-    private String label;
+public class Location {
     @SerializedName("lat")
     @Expose
     private Double lat;
     @SerializedName("lng")
     @Expose
     private Double lng;
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
 
     public Double getLat() {
         return lat;
