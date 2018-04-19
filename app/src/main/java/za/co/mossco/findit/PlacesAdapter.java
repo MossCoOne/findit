@@ -36,14 +36,8 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull PlacesViewHolder holder, int position) {
         final Result currentResult = resultList.get(position);
-        if (!currentResult.getTypes().isEmpty()) {
-            holder.placeCategoryTextView.setText(currentResult.getTypes().get(0));
-        } else {
-            holder.placeCategoryTextView.setText("Undefined");
-        }
-        holder.placeDistanceTextView.setText("Distance : 8 KM");
         holder.placeNameTextView.setText(currentResult.getName());
-        if (!currentResult.getPhotos().isEmpty()) {
+        if (currentResult.getPhotos() != null) {
             String imageUrl = StringUtils.parseImageUrl(currentResult.getPhotos().get(0).getPhotoReference());
             Picasso.get()
                     .load(imageUrl)
