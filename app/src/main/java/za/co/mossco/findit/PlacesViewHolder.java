@@ -11,7 +11,7 @@ import za.co.mossco.findit.model.Result;
 
 public class PlacesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     ImageView placeIconImageView;
-    TextView placeNameTextView, placeCategoryTextView, placeDistanceTextView;
+    TextView placeNameTextView;
     private PlacesClickListener placesClickListener;
     private Result currentResult;
 
@@ -20,8 +20,6 @@ public class PlacesViewHolder extends RecyclerView.ViewHolder implements View.On
         super(placesRowBinding.getRoot());
         placeIconImageView = placesRowBinding.ivPlaceIcon;
         placeNameTextView = placesRowBinding.tvVenueName;
-        placeCategoryTextView = placesRowBinding.tvVenueCategory;
-        placeDistanceTextView = placesRowBinding.tvDistance;
         this.placesClickListener = placesClickListener;
         placesRowBinding.getRoot().setOnClickListener(this);
     }
