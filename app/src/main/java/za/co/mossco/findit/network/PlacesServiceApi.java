@@ -10,6 +10,6 @@ public interface PlacesServiceApi {
     Call<PlacesResponse> findPlacesAround(
             @Query("location") String longitudeAndLatitude,
             @Query("radius") double radius,
-            @Query("types") String category,
+            @Query("type") String category,
             @Query("key") String apiKey);
 }

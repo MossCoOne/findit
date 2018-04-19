@@ -8,15 +8,18 @@
     <string name="place_image">Place image</string>
     <string-array name="category_array">
         <item>Select category</item>
-        <item>Gas Station</item>
-        <item>Hardware Store</item>
-        <item>Health &amp; Beauty Service</item>
-        <item>IT Services</item>
-        <item>Food</item>
-        <item>Car Wash</item>
-        <item>College &amp; University</item>
-        <item>Event</item>
-        <item>Child Care Service</item>
-        <item> Arts &amp; Entertainment</item>
+        <item>Restaurant</item>
+        <item>Health</item>
+        <item>Airport</item>
+        <item>Library</item>
+        <item>Gym</item>
+        <item>Bakery</item>
+        <item>Airport</item>
+        <item>Doctor</item>
+        <item>School</item>
+        <item>Bank</item>
+        <item>Bar</item>
+        <item>Mall</item>
+        <item>University</item>
     </string-array>
 </resources>
