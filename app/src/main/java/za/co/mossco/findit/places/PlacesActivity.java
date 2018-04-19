@@ -2,6 +2,7 @@ package za.co.mossco.findit.places;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.location.Address;
@@ -50,6 +51,7 @@ public class PlacesActivity extends AppCompatActivity implements NearByPlacesCon
     private NearbyPlacesPresenter nearbyPlacesPresenter;
     private String longiAndLati;
     private String category;
+    private ProgressDialog nearByPlacesProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,12 +182,16 @@ public class PlacesActivity extends AppCompatActivity implements NearByPlacesCon
 
     @Override
     public void showProgressDialog() {
-
+        nearByPlacesProgressDialog = new ProgressDialog(this);
+        nearByPlacesProgressDialog.setTitle(getString(R.string.places_loading));
+        nearByPlacesProgressDialog.setMessage(getString(R.string.please_wait_message));
+        nearByPlacesProgressDialog.setIndeterminate(true);
+        nearByPlacesProgressDialog.show();
     }
 
     @Override
     public void dismissProgressDialog() {
-
+        nearByPlacesProgressDialog.dismiss();
     }
 
     @Override

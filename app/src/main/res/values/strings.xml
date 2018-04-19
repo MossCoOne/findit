@@ -6,6 +6,8 @@
     <string name="filter_by">Filter by:</string>
     <string name="expand_dropdown">Expand dropdown list</string>
     <string name="place_image">Place image</string>
+    <string name="places_loading">Loading images</string>
+    <string name="please_wait_message">Please wait..</string>
     <string-array name="category_array">
         <item>Select category</item>
         <item>Restaurant</item>
