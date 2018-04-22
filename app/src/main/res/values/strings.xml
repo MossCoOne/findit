@@ -31,4 +31,9 @@
     <string name="place_rating">Rating</string>
     <string name="place_category">Category</string>
     <string name="place_name">Place name</string>
+    <string name="no_results_found">No results found</string>
+    <string name="api_call_limit">You reached API calls limit</string>
+    <string name="request_denied">Request denied</string>
+    <string name="unknown_error">Server is not responding</string>
+    <string name="inavalid_request">Invalid parameter provided</string>
 </resources>

@@ -20,8 +20,9 @@ public class PlacesRepositoryImpl implements PlacesRepository {
                 .enqueue(new Callback<PlacesResponse>() {
                     @Override
                     public void onResponse(Call<PlacesResponse> call, Response<PlacesResponse> response) {
-                        if (response.isSuccessful()) {
+                        if (response.isSuccessful() && response.body().getStatus().equalsIgnoreCase("OK")) {
                             nearByPlacesCallback.onNearByPlacesLoaded(response.body().getResults());
+                        } else {
                             nearByPlacesCallback.onErrorOccurred(response.body().getStatus());
                         }
                     }

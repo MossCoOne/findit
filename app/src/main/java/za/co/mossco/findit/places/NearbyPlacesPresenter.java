@@ -28,9 +28,7 @@ public class NearbyPlacesPresenter implements NearByPlacesContract.UserActionsLi
 
             @Override
             public void onErrorOccurred(String errorMessage) {
-                if (!errorMessage.equalsIgnoreCase("Ok")) {
-                    view.showErrorOccurredMessage(errorMessage);
-                }
+                view.showErrorOccurredMessage(errorMessage);
             }
         });
     }

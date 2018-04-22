@@ -10,6 +10,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -86,7 +87,7 @@ public class PlacesActivity extends AppCompatActivity implements NearByPlacesCon
 
             }
         });
-        nearbyPlacesPresenter.loadNearByPlaces(longiAndLati, savedInstanceState.getString("category"));
+        //nearbyPlacesPresenter.loadNearByPlaces(longiAndLati, savedInstanceState.getString("category"));
     }
 
     private void setUpRecyclerView(List<Result> resultList) {
@@ -216,7 +217,23 @@ public class PlacesActivity extends AppCompatActivity implements NearByPlacesCon
 
     @Override
     public void showErrorOccurredMessage(String errorMessage) {
-
+        switch (errorMessage) {
+            case "ZERO_RESULTS":
+                showSnackBar(getString(R.string.no_results_found));
+                break;
+            case "OVER_QUERY_LIMIT":
+                showSnackBar(getString(R.string.api_call_limit));
+                break;
+            case "REQUEST_DENIED":
+                showSnackBar(getString(R.string.request_denied));
+                break;
+            case "INVALID_REQUEST":
+                showSnackBar(getString(R.string.inavalid_request));
+                break;
+            case "UNKNOWN_ERROR":
+                showSnackBar(getString(R.string.unknown_error));
+                break;
+        }
     }
 
     @Override
@@ -226,5 +243,12 @@ public class PlacesActivity extends AppCompatActivity implements NearByPlacesCon
                 nearbyPlacesPresenter.loadNearByPlaces(longiAndLati, category);
                 break;
         }
+    }
+
+    private void showSnackBar(String messageToDispalay) {
+        nearByPlacesProgressDialog.dismiss();
+        Snackbar snackbar = Snackbar
+                .make(binding.btnFindNearbyLocation, messageToDispalay, Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 }
