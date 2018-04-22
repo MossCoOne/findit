@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,9 +28,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import za.co.mossco.findit.PlaceDetailActivity;
 import za.co.mossco.findit.PlacesAdapter;
 import za.co.mossco.findit.R;
 import za.co.mossco.findit.databinding.ActivityPlacesBinding;
@@ -41,9 +44,10 @@ public class PlacesActivity extends AppCompatActivity implements NearByPlacesCon
     PlacesAdapter.PlacesClickListener placesClickListener = new PlacesAdapter.PlacesClickListener() {
         @Override
         public void onPlaceClicked(Result result) {
-            //open detailed activity
+            startActivity(PlaceDetailActivity.getInstance(getApplicationContext(), result, currentLocation));
         }
     };
+    private List<Result> resultList;
     private FusedLocationProviderClient fusedLocationClient;
     private String currentLocation;
     private ActivityPlacesBinding binding;
@@ -57,6 +61,8 @@ public class PlacesActivity extends AppCompatActivity implements NearByPlacesCon
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_places);
+        Toolbar mainToolbar = findViewById(R.id.main_toolbar);
+        setSupportActionBar(mainToolbar);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         final Spinner spinner = findViewById(R.id.categories_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -68,7 +74,7 @@ public class PlacesActivity extends AppCompatActivity implements NearByPlacesCon
         nearbyPlacesPresenter = new NearbyPlacesPresenter(this);
         binding.btnFindNearbyLocation.setOnClickListener(this);
 
-
+        resultList = new ArrayList<>();
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -80,6 +86,7 @@ public class PlacesActivity extends AppCompatActivity implements NearByPlacesCon
 
             }
         });
+        nearbyPlacesPresenter.loadNearByPlaces(longiAndLati, savedInstanceState.getString("category"));
     }
 
     private void setUpRecyclerView(List<Result> resultList) {
@@ -178,6 +185,14 @@ public class PlacesActivity extends AppCompatActivity implements NearByPlacesCon
     @Override
     public void displayNearByPlaces(List<Result> resultList) {
         setUpRecyclerView(resultList);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("current_location", currentLocation);
+        outState.putString("longi", longiAndLati);
+        outState.putString("category", category);
+        super.onSaveInstanceState(outState);
     }
 
     @Override

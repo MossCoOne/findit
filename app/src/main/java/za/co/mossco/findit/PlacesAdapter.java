@@ -47,7 +47,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesViewHolder> {
             Log.d("Adapter url", imageUrl);
         } else {
             Picasso.get()
-                    .load("ddd")
+                    .load(R.drawable.ic_error)
                     .placeholder(R.drawable.ic_image_placeholder)
                     .error(R.drawable.ic_error)
                     .into(holder.placeIconImageView);

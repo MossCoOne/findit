@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Findit</string>
-    <string name="current_location_title">Current Location:</string>
+    <string name="current_location_title">Your current Location:</string>
     <string name="location_icon">Location icon</string>
     <string name="find_nearby_location">Find nearby places</string>
     <string name="filter_by">Filter by:</string>
@@ -24,4 +24,11 @@
         <item>Mall</item>
         <item>University</item>
     </string-array>
+    <string name="title_activity_place_detail">PlaceDetailActivity</string>
+    <string name="photos_around">Photos around your area</string>
+    <string name="image_details">More details about the place</string>
+    <string name="place_open">Open now</string>
+    <string name="place_rating">Rating</string>
+    <string name="place_category">Category</string>
+    <string name="place_name">Place name</string>
 </resources>

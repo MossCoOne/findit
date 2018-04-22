@@ -23,7 +23,7 @@ public class NearbyPlacesPresenter implements NearByPlacesContract.UserActionsLi
             @Override
             public void onNearByPlacesLoaded(List<Result> resultList) {
                 view.displayNearByPlaces(resultList);
-                view.showProgressDialog();
+                view.dismissProgressDialog();
             }
 
             @Override

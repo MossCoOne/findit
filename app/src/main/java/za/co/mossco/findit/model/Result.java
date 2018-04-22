@@ -36,6 +36,29 @@ public class Result {
     @SerializedName("vicinity")
     @Expose
     private String vicinity;
+    @SerializedName("rating")
+    @Expose
+    private float rating;
+
+    @SerializedName("opening_hours")
+    @Expose
+    private OpeningHours openingHours;
+
+    public OpeningHours getOpeningHours() {
+        return openingHours;
+    }
+
+    public void setOpeningHours(OpeningHours openingHours) {
+        this.openingHours = openingHours;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
 
     public Geometry getGeometry() {
         return geometry;

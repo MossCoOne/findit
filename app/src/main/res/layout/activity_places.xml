@@ -9,13 +9,14 @@
         android:background="#fff"
         android:orientation="vertical">
 
+        <include layout="@layout/toolbar" />
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/cl_top_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dimen_4dp"
-            android:background="#ECEFF1"
+            android:background="@color/colorBackground"
             android:elevation="@dimen/dimen_4dp">
 
             <TextView
@@ -69,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dimen_4dp"
-            android:background="#ECEFF1"
+            android:background="@color/colorBackground"
             android:orientation="vertical">
 
             <TextView
