@@ -29,7 +29,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -48,7 +47,6 @@ public class PlacesActivity extends AppCompatActivity implements NearByPlacesCon
             startActivity(PlaceDetailActivity.getInstance(getApplicationContext(), result, currentLocation));
         }
     };
-    private List<Result> resultList;
     private FusedLocationProviderClient fusedLocationClient;
     private String currentLocation;
     private ActivityPlacesBinding binding;
@@ -75,7 +73,6 @@ public class PlacesActivity extends AppCompatActivity implements NearByPlacesCon
         nearbyPlacesPresenter = new NearbyPlacesPresenter(this);
         binding.btnFindNearbyLocation.setOnClickListener(this);
 
-        resultList = new ArrayList<>();
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
