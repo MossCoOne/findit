@@ -4,10 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -16,11 +16,15 @@ import java.util.Objects;
 
 import za.co.mossco.findit.databinding.ActivityPlaceDetailBinding;
 import za.co.mossco.findit.model.Result;
+import za.co.mossco.findit.places.PlacesActivity;
 import za.co.mossco.findit.utilities.StringUtils;
 
 public class PlaceDetailActivity extends AppCompatActivity {
-    private static String results = "current_weather";
-    private static String currentLocation;
+    private static String results = "current_place";
+    private static String place = "location";
+    private String currentLocation;
+    private String currentCategory;
+
     private Result selectedResults;
     private ActivityPlaceDetailBinding binding;
 
@@ -28,7 +32,7 @@ public class PlaceDetailActivity extends AppCompatActivity {
         Intent detailIntent = new Intent(context, PlaceDetailActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString(results, new Gson().toJson(result));
-        bundle.putString(currentLocation, location);
+        bundle.putString(place, location);
         detailIntent.putExtras(bundle);
         return detailIntent;
     }
@@ -44,16 +48,17 @@ public class PlaceDetailActivity extends AppCompatActivity {
 
 
         String resultsJsonString = getIntent().getStringExtra(results);
-        String location = getIntent().getStringExtra(currentLocation);
+        currentLocation = getIntent().getStringExtra(place);
         initializeUI(resultsJsonString);
     }
 
     private void initializeUI(String resultsJsonString) {
         selectedResults = new Gson().fromJson(resultsJsonString, Result.class);
         binding.tvPlaceName.setText(selectedResults.getName());
-        binding.tvPlaceCategory.setText(selectedResults.getTypes().get(0));
+        currentCategory = selectedResults.getTypes().get(0);
+        binding.tvPlaceCategory.setText(currentCategory);
         binding.tvPlaceRating.setRating(selectedResults.getRating());
-        if (selectedResults.getOpeningHours().getOpenNow()) {
+        if (selectedResults.getOpeningHours() != null) {
             binding.tvPlaceOpen.setText(isPlaceOpen(selectedResults.getOpeningHours().getOpenNow()));
         } else {
             binding.tvPlaceOpen.setText("Time not available");
@@ -63,9 +68,19 @@ public class PlaceDetailActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                startActivity(PlacesActivity.getInstance(getApplicationContext(), currentCategory, currentLocation));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
         outState.putString(results, new Gson().toJson(selectedResults));
-        super.onSaveInstanceState(outState, outPersistentState);
+        super.onSaveInstanceState(outState);
     }
 
     private String isPlaceOpen(boolean isPlaceOpen) {

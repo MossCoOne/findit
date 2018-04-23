@@ -3,6 +3,8 @@ package za.co.mossco.findit.places;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.location.Address;
@@ -29,6 +31,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -41,12 +44,6 @@ import za.co.mossco.findit.model.Result;
 public class PlacesActivity extends AppCompatActivity implements NearByPlacesContract.View, View.OnClickListener {
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 111;
     private final String TAG = PlacesActivity.class.getCanonicalName();
-    PlacesAdapter.PlacesClickListener placesClickListener = new PlacesAdapter.PlacesClickListener() {
-        @Override
-        public void onPlaceClicked(Result result) {
-            startActivity(PlaceDetailActivity.getInstance(getApplicationContext(), result, currentLocation));
-        }
-    };
     private FusedLocationProviderClient fusedLocationClient;
     private String currentLocation;
     private ActivityPlacesBinding binding;
@@ -55,6 +52,24 @@ public class PlacesActivity extends AppCompatActivity implements NearByPlacesCon
     private String longiAndLati;
     private String category;
     private ProgressDialog nearByPlacesProgressDialog;
+    private static final String LOCATION = "location";
+    private static final String CATEGORY = "category";
+    PlacesAdapter.PlacesClickListener placesClickListener = new PlacesAdapter.PlacesClickListener() {
+        @Override
+        public void onPlaceClicked(Result result) {
+            startActivity(PlaceDetailActivity.getInstance(getApplicationContext(), result, longiAndLati));
+        }
+    };
+    private List<Result> resultList = new ArrayList<>();
+
+    public static Intent getInstance(Context context, String category, String location) {
+        Intent detailIntent = new Intent(context, PlacesActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(LOCATION, location);
+        bundle.putString(CATEGORY, category);
+        detailIntent.putExtras(bundle);
+        return detailIntent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +99,27 @@ public class PlacesActivity extends AppCompatActivity implements NearByPlacesCon
 
             }
         });
-        //nearbyPlacesPresenter.loadNearByPlaces(longiAndLati, savedInstanceState.getString("category"));
+
+    }
+
+    @Override
+    public Object onRetainCustomNonConfigurationInstance() {
+        return resultList;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString(LOCATION, longiAndLati);
+        outState.putString(CATEGORY, category);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        longiAndLati = savedInstanceState.getString(LOCATION);
+        category = savedInstanceState.getString(CATEGORY);
+        nearbyPlacesPresenter.loadNearByPlaces(longiAndLati, category);
     }
 
     private void setUpRecyclerView(List<Result> resultList) {
@@ -183,14 +218,7 @@ public class PlacesActivity extends AppCompatActivity implements NearByPlacesCon
     @Override
     public void displayNearByPlaces(List<Result> resultList) {
         setUpRecyclerView(resultList);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putString("current_location", currentLocation);
-        outState.putString("longi", longiAndLati);
-        outState.putString("category", category);
-        super.onSaveInstanceState(outState);
+        this.resultList = resultList;
     }
 
     @Override
