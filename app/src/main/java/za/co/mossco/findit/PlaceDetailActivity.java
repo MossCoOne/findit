@@ -16,13 +16,11 @@ import java.util.Objects;
 
 import za.co.mossco.findit.databinding.ActivityPlaceDetailBinding;
 import za.co.mossco.findit.model.Result;
-import za.co.mossco.findit.places.PlacesActivity;
 import za.co.mossco.findit.utilities.StringUtils;
 
 public class PlaceDetailActivity extends AppCompatActivity {
     private static String results = "current_place";
     private static String place = "location";
-    private String currentLocation;
     private String currentCategory;
 
     private Result selectedResults;
@@ -48,7 +46,7 @@ public class PlaceDetailActivity extends AppCompatActivity {
 
 
         String resultsJsonString = getIntent().getStringExtra(results);
-        currentLocation = getIntent().getStringExtra(place);
+        String currentLocation = getIntent().getStringExtra(place);
         initializeUI(resultsJsonString);
     }
 
@@ -71,7 +69,7 @@ public class PlaceDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                startActivity(PlacesActivity.getInstance(getApplicationContext(), currentCategory, currentLocation));
+                finish();
                 break;
         }
         return super.onOptionsItemSelected(item);

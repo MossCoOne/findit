@@ -3,8 +3,6 @@ package za.co.mossco.findit.places;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.location.Address;
@@ -62,14 +60,6 @@ public class PlacesActivity extends AppCompatActivity implements NearByPlacesCon
     };
     private List<Result> resultList = new ArrayList<>();
 
-    public static Intent getInstance(Context context, String category, String location) {
-        Intent detailIntent = new Intent(context, PlacesActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString(LOCATION, location);
-        bundle.putString(CATEGORY, category);
-        detailIntent.putExtras(bundle);
-        return detailIntent;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
